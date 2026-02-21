@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" id="top">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+  <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}" />
+
+
+    {{/* ---------- Open Graph / WhatsApp / Facebook ---------- */}}
+  <meta property="og:site_name" content="{{ site.Title }}">
+  <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ site.Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+
+  {{/* Get thumbnail from bundle resource OR fallback param OR site default */}}
+  {{ $thumbRes := .Resources.GetMatch "thumbnail.*" }}
+  {{ $ogImage := "" }}
+
+  {{ if $thumbRes }}
+    {{ $og := $thumbRes.Fit "1200x630 jpg q85" }}
+    {{ $ogImage = $og.Permalink }}
+  {{ else if .Params.thumbnail }}
+    {{ $ogImage = (.Params.thumbnail | absURL) }}
+  {{ else if site.Params.defaultThumbnail }}
+    {{ $ogImage = (site.Params.defaultThumbnail | absURL) }}
+  {{ end }}
+
+  {{ if $ogImage }}
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+  {{ end }}
+
+  {{/* ---------- Twitter Card ---------- */}}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ site.Title }}{{ end }}">
+  <meta name="twitter:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  {{ if $ogImage }}<meta name="twitter:image" content="{{ $ogImage }}">{{ end }}
+
+  
+
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { dark: { 900: '#0b0b0b', 800: '#101010', 700: '#1a1a1a' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-dark-900 text-neutral-100 antialiased">
+  {{ partial "navbar.html" . }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  <script>try { feather.replace(); } catch(e) {}</script>
+  <script src="{{ "/js/search.js" | relURL }}" defer></script>
+</body>
+</html>

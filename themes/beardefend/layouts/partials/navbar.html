@@ -1,0 +1,82 @@
+<header class="sticky top-0 z-50 border-b border-dark-700 bg-dark-900/80 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="h-16 flex items-center justify-between gap-4">
+      <a href="{{ "/" | relURL }}" class="flex items-center gap-3">
+        <span class="brand-mark">
+          <img class="brand-logo" src="{{ "assets/logo.png" | relURL }}" alt="BearDefend logo" />
+        </span>
+        <div class="leading-tight">
+          <div class="text-neutral-100 font-semibold">{{ site.Title }}</div>
+          <!-- <div class="text-xs text-neutral-400">{{ site.Params.tagline }}</div> -->
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6">
+        {{ range site.Menus.main }}
+          <a class="nav-link text-sm font-medium" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{ end }}
+        {{ with site.Params.github }}<a class="nav-link text-sm" href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
+        {{ with site.Params.youtube }}<a class="nav-link text-sm" href="{{ . }}" target="_blank" rel="noopener">YouTube</a>{{ end }}
+      </nav>
+
+      <div class="hidden md:flex items-center gap-2">
+        <div class="search-wrap w-[260px]">
+          <span class="search-icon"><i data-feather="search" class="w-5 h-5 text-lime-400/80"></i></span>
+          <input id="global-search" class="search-input text-sm" type="search" placeholder="Search" autocomplete="off" />
+          
+          <!-- <button id="search-clear" class="icon-btn clear-btn" style="display:none;" type="button" aria-label="Clear search">
+            <i data-feather="x"></i>
+          </button> -->
+          
+          <button id="search-clear" class="clear-btn" style="display:none;" type="button" aria-label="Clear search">
+          </button>
+        </div>
+      </div>
+
+      <button id="mobileMenuBtn" class="md:hidden icon-btn" aria-label="Open menu">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden pb-4 hidden">
+      <div class="grid grid-cols-2 gap-2 pt-2">
+        {{ range site.Menus.main }}
+          <a class="mobile-link text-sm" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{ end }}
+        {{ with site.Params.github }}<a class="mobile-link text-sm" href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
+        {{ with site.Params.youtube }}<a class="mobile-link text-sm" href="{{ . }}" target="_blank" rel="noopener">YouTube</a>{{ end }}
+      </div>
+      <div class="mt-3 search-wrap">
+        <span class="search-icon"><i data-feather="search" class="w-5 h-5 text-lime-400/80"></i></span>
+        <input id="global-search-mobile" class="search-input" type="search" placeholder="Search posts..." autocomplete="off" />
+      </div>
+      <!-- <div class="text-xs text-neutral-500 mt-2">Tip: Ctrl/⌘ K to search</div> -->
+    </div>
+  </div>
+
+  <div id="search-panel" class="hidden">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-5">
+      <div class="flex items-baseline justify-between">
+        <div class="text-sm text-neutral-400">Search results</div>
+        <div class="text-sm text-neutral-400"><span id="search-count">0</span> matches</div>
+      </div>
+      <div id="search-results" class="mt-3 grid gap-3"></div>
+      <div class="mt-4 text-xs text-neutral-500">Press Esc to close.</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('mobileMenuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+      const mobile = document.getElementById('global-search-mobile');
+      const desktop = document.getElementById('global-search');
+      if (mobile && desktop) {
+        mobile.addEventListener('input', () => { desktop.value = mobile.value; desktop.dispatchEvent(new Event('input')); });
+        mobile.addEventListener('focus', () => { desktop.focus(); });
+      }
+    })();
+  </script>
+</header>

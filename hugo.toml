@@ -1,0 +1,65 @@
+baseURL = "https://beardefend.com/"
+languageCode = "en-us"
+title = "BearDefend"
+theme = "beardefend"
+
+enableRobotsTXT = true
+canonifyURLs = true
+
+[pagination]
+  pagerSize = 9
+
+[permalinks]
+  # Note: 150405 is Hugo's time layout token for HHmmss (derived from the page Date).
+  # Trailing slashes keep navigation stable across repeated clicks and avoid relative URL stacking.
+  tutorials = "/tutorials/:year/:slug/:150405/"
+  news = "/news/:year/:slug/:150405/"
+  products = "/products/:year/:slug/:150405/"
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+  tagline = "We Defend What Defines You"
+  description = "BearDefend is a cybersecurity company focused on practical defense, research, and tools that protect what defines you."
+  github = "https://github.com/beardefend"
+  youtube = "https://www.youtube.com/@BearDefend"
+  linkedin = ""
+  defaultThumbnail = "/assets/default-thumb.png"
+  contactEmail = "hello@beardefend.com"
+
+  [params.whatsapp]
+    number = "+8801950693473"
+    messageTemplate = "Hi BearDefend, I'm interested in: {title} ({url})"
+    buttonLabel = "Contact on WhatsApp"
+
+  [params.products]
+    downloadLabel = "Download"
+    getProductLabel = "Get this product"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Tutorials"
+    url = "/tutorials/"
+    weight = 2
+  [[menu.main]]
+    name = "News"
+    url = "/news/"
+    weight = 3
+  [[menu.main]]
+    name = "Products"
+    url = "/products/"
+    weight = 4
+
+[outputFormats.SearchIndex]
+mediaType = "application/json"
+baseName = "search-index"
+isPlainText = true
+notAlternative = true
+
+[outputs]
+home = ["HTML", "SearchIndex"]

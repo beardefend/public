@@ -1,0 +1,76 @@
+{{/* Label */}}
+{{ $sectionLabel := cond (eq .Section "tutorials") "Tutorial" (cond (eq .Section "news") "News" "Product") }}
+
+{{/* Defaults */}}
+{{ $defaultThumb := site.Params.defaultThumbnail | default "/assets/default-thumb.webp" }}
+
+{{/* 1) Try bundle resource thumbnail first */}}
+{{ $thumbParam := .Params.thumbnail | default "thumbnail" }}
+
+{{/* If user set thumbnail: "thumbnail.jpg" use that; if "thumbnail" try common extensions */}}
+{{ $thumbRes := .Resources.GetMatch $thumbParam }}
+{{ if not $thumbRes }}
+  {{ $thumbRes = .Resources.GetMatch (printf "%s.*" $thumbParam) }}
+{{ end }}
+
+{{/* 2) If still not found, try common names */}}
+{{ if not $thumbRes }}
+  {{ $thumbRes = .Resources.GetMatch "{thumbnail,thumb,cover,hero}.*" }}
+{{ end }}
+
+{{/* 3) If resource exists, generate optimized WebP variants */}}
+{{ $imgSrc := "" }}
+{{ $imgSrcset := "" }}
+
+{{ if $thumbRes }}
+  {{ $t640  := $thumbRes.Fit "640x360 webp q75" }}
+  {{ $t960  := $thumbRes.Fit "960x540 webp q75" }}
+  {{ $t1280 := $thumbRes.Fit "1280x720 webp q75" }}
+  {{ $imgSrc = $t960.RelPermalink }}
+  {{ $imgSrcset = printf "%s 640w, %s 960w, %s 1280w" $t640.RelPermalink $t960.RelPermalink $t1280.RelPermalink }}
+{{ else }}
+  {{/* 4) Fallback: treat thumbnail as a string URL (old behavior) */}}
+  {{ $thumbStr := .Params.thumbnail | default $defaultThumb }}
+  {{ $imgSrc = ($thumbStr | relURL) }}
+{{ end }}
+
+<a href="{{ .RelPermalink }}" class="group bd-card block transition">
+  <div class="bd-thumb">
+    {{ if $thumbRes }}
+      <img
+        src="{{ $imgSrc }}"
+        srcset="{{ $imgSrcset }}"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="group-hover:scale-[1.02] transition"
+      />
+    {{ else }}
+      <img
+        src="{{ $imgSrc }}"
+        alt=""
+        loading="lazy"
+        class="group-hover:scale-[1.02] transition"
+      />
+    {{ end }}
+  </div>
+
+  <div class="bd-card-body">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="pill pill--label">{{ $sectionLabel }}</span>
+      <span class="pill">{{ .Date.Format "2006-01-02" }}</span>
+    </div>
+
+    <h3 class="text-xl font-extrabold text-neutral-100 leading-snug">{{ .Title }}</h3>
+    <p class="mt-2 text-sm text-neutral-300 leading-relaxed">{{ .Params.description | default .Summary }}</p>
+
+    {{ with .Params.tags }}
+      <div class="mt-4 flex flex-wrap gap-2">
+        {{ range first 5 . }}
+          <span class="tag-chip">{{ . }}</span>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</a>

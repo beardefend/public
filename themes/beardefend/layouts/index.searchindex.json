@@ -1,0 +1,17 @@
+[
+  {{- $pages := where site.RegularPages "Type" "in" (slice "tutorials" "news" "products") -}}
+  {{- $pages = sort $pages "Date" "desc" -}}
+  {{- range $i, $p := $pages -}}
+    {{- if $i }},{{ end -}}
+    {
+      "title": {{ $p.Title | jsonify }},
+      "description": {{ (or $p.Params.description $p.Summary) | plainify | jsonify }},
+      "tags": {{ (or $p.Params.tags (slice)) | jsonify }},
+      "section": {{ $p.Section | jsonify }},
+      "permalink": {{ $p.RelPermalink | jsonify }},
+      "thumbnail": {{ (or $p.Params.thumbnail site.Params.defaultThumbnail) | relURL | jsonify }},
+      "date": {{ $p.Date.Format "2006-01-02" | jsonify }},
+      "body": {{ ($p.Plain | truncate 1200) | jsonify }}
+    }
+  {{- end -}}
+]

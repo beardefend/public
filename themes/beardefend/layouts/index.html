@@ -1,0 +1,201 @@
+{{ define "main" }}
+
+<!-- HERO -->
+<section class="relative overflow-hidden">
+  <!-- background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-dark-800/20 via-dark-900 to-dark-900"></div>
+  <div class="absolute inset-0 opacity-70">
+    <svg viewBox="0 0 1200 800" class="w-full h-full">
+      <defs>
+        <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+          <path d="M 46 0 L 0 0 0 46" fill="none" stroke="currentColor" stroke-width="0.6" class="text-lime-400/30"></path>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"></rect>
+    </svg>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16 sm:pb-20 relative">
+    <div class="mx-auto max-w-4xl text-center fade-in">
+      <div class="flex justify-center mb-7">
+        <span class="brand-mark" style="width:120px;height:120px;">
+          <img class="brand-logo" src="{{ "assets/logo.png" | relURL }}" alt="BearDefend" />
+        </span>
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95]">
+        <span class="block text-lime-400">We Defend</span>
+        <span class="block text-neutral-100">What Defines You</span>
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed">
+        {{ site.Params.description }}
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/updates/" class="btn-primary">Explore</a>
+        <a href="#contact" class="btn-ghost">Contact</a>
+      </div>
+
+      <!-- hero highlights -->
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+        <div class="bd-card p-5">
+          <div class="flex items-center gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="shield"></i></span>
+            <h3 class="font-bold text-neutral-100">Security Consulting</h3>
+          </div>
+          <p class="mt-2 text-sm text-neutral-300 leading-relaxed">Security reviews, threat modeling, and pragmatic hardening for real teams.</p>
+        </div>
+        <div class="bd-card p-5">
+          <div class="flex items-center gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="cpu"></i></span>
+            <h3 class="font-bold text-neutral-100">Defensive Tooling</h3>
+          </div>
+          <p class="mt-2 text-sm text-neutral-300 leading-relaxed">Checklists, templates, and automation packs you can adopt immediately.</p>
+        </div>
+        <div class="bd-card p-5">
+          <div class="flex items-center gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="book-open"></i></span>
+            <h3 class="font-bold text-neutral-100">Tutorials & Training</h3>
+          </div>
+          <p class="mt-2 text-sm text-neutral-300 leading-relaxed">Clear, step-by-step guidance from fundamentals to advanced topics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST TUTORIALS -->
+<section class="py-0 sm:py-20 bg-dark-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- <div class="flex items-end justify-between gap-4"> -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-lime-400">Latest Updates</h2>
+        <p class="mt-1 text-sm text-neutral-300">Fresh, practical guidance you can apply today.</p>
+      </div>
+      <!-- <a class="nav-link text-sm btn-ghost" href="/tutorials/">View all <span aria-hidden="true">→</span></a> -->
+      <!-- <a class="nav-link text-xs btn-ghost" href="/tutorials/">View all</a> -->
+      <a class="nav-link text-sm btn-ghost" href="/updates/">View all</a>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- {{ $tuts := first 3 (sort (where site.RegularPages "Section" "tutorials") "Date" "desc") }}
+      {{ range $tuts }}
+        {{ partial "card.html" . }}
+      {{ end }} -->
+
+      {{/* Get tutorials */}}
+      {{ $tutorials := where site.RegularPages "Section" "tutorials" }}
+
+      {{/* Get news */}}
+      {{ $news := where site.RegularPages "Section" "news" }}
+
+      {{/* Combine both */}}
+      {{ $combined := $tutorials | append $news }}
+
+      {{/* Sort by date descending */}}
+      {{ $sorted := sort $combined "Date" "desc" }}
+
+      {{/* Take first 3 */}}
+      {{ range first 3 $sorted }}
+        {{ partial "card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT + SERVICES -->
+<section class="py-20 bg-neutral-900/70 border-y border-neutral-800/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="p-8">
+        <h2 class="text-3xl font-extrabold text-lime-400">About Us</h2>
+        <p class="mt-4 text-neutral-300 leading-relaxed">BearDefend is a cybersecurity company built around one idea: defense should be understandable, actionable, and measurable. We help people and teams reduce risk with sensible controls — without buzzwords, fear, or complexity theatre.</p>
+        <p class="mt-4 text-neutral-300 leading-relaxed">Our approach blends modern security engineering with practical operations: harden what you have, monitor what matters, and build habits that prevent incidents before they become headlines.</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="tag-chip">Practical by default</span>
+          <span class="tag-chip">Defense-in-depth</span>
+          <span class="tag-chip">Secure-by-design</span>
+          <span class="tag-chip">Incident ready</span>
+        </div>
+      </div>
+
+      <div class="bd-card p-8">
+        <h3 class="text-xl font-extrabold text-neutral-100">Services & products</h3>
+        <div class="mt-6 space-y-5">
+          <div class="flex gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="search"></i></span>
+            <div>
+              <div class="font-bold">Security assessments</div>
+              <div class="text-sm text-neutral-300">App & API reviews, cloud posture checks, and actionable remediation plans.</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="layers"></i></span>
+            <div>
+              <div class="font-bold">Secure architecture</div>
+              <div class="text-sm text-neutral-300">Threat modeling, zero-trust patterns, and policy-by-design guidance.</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="icon-btn" aria-hidden="true"><i data-feather="activity"></i></span>
+            <div>
+              <div class="font-bold">Detection & response</div>
+              <div class="text-sm text-neutral-300">Logging strategy, alert tuning, and incident runbooks you can actually follow.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="mt-7 p-5">
+          <span class="pill pill--label">Mission</span>
+          <span class="text-sm text-neutral-200"> make cybersecurity understandable, adoptable, and durable — from individuals to engineering teams.</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-16 sm:py-20 bg-dark-900">
+<!-- <section id="contact" class="py-20 bg-neutral-900/70 border-y border-neutral-800/70"> -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-3xl font-extrabold text-lime-400">Contact</h2>
+        <p class="mt-2 text-neutral-300">Want a review, a training session, or a collaboration? Reach out.</p>
+
+        <div class="mt-6 bd-card p-6">
+          <div class="text-sm text-neutral-400">Email</div>
+          <a class="mt-1 block text-lime-400 font-semibold" href="mailto:{{ site.Params.contactEmail }}">{{ site.Params.contactEmail }}</a>
+
+          <div class="mt-6 text-sm text-neutral-400">Socials</div>
+          <div class="mt-3 flex items-center gap-2">
+            <a class="icon-btn" href="{{ site.Params.github }}" target="_blank" rel="noopener" aria-label="GitHub"><i data-feather="github"></i></a>
+            <a class="icon-btn" href="{{ site.Params.youtube }}" target="_blank" rel="noopener" aria-label="YouTube"><i data-feather="youtube"></i></a>
+            <!-- <span class="text-sm text-neutral-500">LinkedIn coming soon</span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="bd-card p-6">
+        <h3 class="text-xl font-extrabold text-neutral-100">Engagement options</h3>
+        <p class="mt-2 text-neutral-300">Choose what fits your stage — from quick guidance to deeper security engineering support.</p>
+
+        <ul class="mt-6 space-y-3 text-neutral-200">
+          <li class="flex items-center gap-2"><span class="text-lime-400"><i data-feather="clock"></i></span> Rapid consult (1–2 hours)</li>
+          <li class="flex items-center gap-2"><span class="text-lime-400"><i data-feather="check-square"></i></span> Security review + report</li>
+          <li class="flex items-center gap-2"><span class="text-lime-400"><i data-feather="users"></i></span> Team training workshop</li>
+          <li class="flex items-center gap-2"><span class="text-lime-400"><i data-feather="shield"></i></span> Ongoing advisory / vCISO</li>
+        </ul>
+
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <a class="btn-primary" href="mailto:{{ site.Params.contactEmail }}">Email us</a>
+          <a class="btn-ghost" href="{{ printf "https://wa.me/%s" (replaceRE "[^0-9]" "" site.Params.whatsapp.number) }}" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ end }}

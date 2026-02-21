@@ -1,0 +1,39 @@
+<footer class="border-t border-dark-700 bg-dark-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="flex gap-3">
+        <span class="brand-mark" style="width:44px;height:44px;">
+          <img class="brand-logo" src="{{ "assets/logo.png" | relURL }}" alt="BearDefend" />
+        </span>
+        <div>
+          <div class="text-neutral-100 font-semibold">{{ site.Title }}</div>
+          <div class="text-sm text-neutral-400">Built for trust, clarity, and modern cyber defense.</div>
+          <p class="mt-3 text-sm text-neutral-400 leading-relaxed">Tutorials, practical guides, and security thinking — helping people stay safer online.</p>
+        </div>
+      </div>
+
+      <div class="md:justify-self-center">
+        <div class="text-sm font-semibold text-neutral-200">Explore</div>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a class="footer-link" href="{{ "/" | relURL }}">Home</a></li>
+          <li><a class="footer-link" href="{{ "/tutorials/" | relURL }}">Tutorials</a></li>
+          <li><a class="footer-link" href="{{ "/news/" | relURL }}">News</a></li>
+          <li><a class="footer-link" href="{{ "/products/" | relURL }}">Products</a></li>
+          <li><a class="footer-link" href="{{ "/#contact" | relURL }}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="md:justify-self-end">
+        <div class="text-sm font-semibold text-neutral-200">Links</div>
+        <ul class="mt-4 space-y-2 text-sm">
+          {{ with site.Params.github }}<li><a class="footer-link" href="{{ . }}" target="_blank" rel="noopener">GitHub</a></li>{{ end }}
+          {{ with site.Params.youtube }}<li><a class="footer-link" href="{{ . }}" target="_blank" rel="noopener">YouTube</a></li>{{ end }}
+          {{ with site.Params.linkedin }}{{ if . }}<li><a class="footer-link" href="{{ . }}" target="_blank" rel="noopener">LinkedIn</a></li>{{ else }}<li><span class="text-neutral-500">LinkedIn (soon)</span></li>{{ end }}{{ end }}
+        </ul>
+        <div class="mt-6 text-sm text-neutral-400">Contact: <a class="footer-link" href="mailto:{{ site.Params.contactEmail }}">{{ site.Params.contactEmail }}</a></div>
+      </div>
+    </div>
+
+    <div class="mt-10 text-xs text-neutral-500">© {{ now.Year }} {{ site.Title }}. All rights reserved.</div>
+  </div>
+</footer>
