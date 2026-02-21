@@ -83,9 +83,9 @@
       ignoreLocation: true,
       keys: [
         { name: 'title', weight: 0.45 },
-        { name: 'description', weight: 0.25 },
-        { name: 'tags', weight: 0.20 },
-        { name: 'body', weight: 0.10 }
+        { name: 'description', weight: 0.10 },
+        { name: 'tags', weight: 0.45 },
+        // { name: 'body', weight: 0.10 }
       ]
     });
   }
