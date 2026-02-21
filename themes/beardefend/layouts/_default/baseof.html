@@ -65,6 +65,10 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  <script>
+  // Cache-busting URL so search index updates every deploy
+  window.__SEARCH_INDEX_URL = '{{ "search-index.json" | relURL }}?v={{ now.Unix }}';
+  </script>
   <script>try { feather.replace(); } catch(e) {}</script>
   <script src="{{ "/js/search.js" | relURL }}" defer></script>
 </body>

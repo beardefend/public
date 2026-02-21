@@ -54,6 +54,7 @@
       // a.className = 'block rounded-2xl border border-dark-700 bg-dark-800/40 hover:bg-dark-800/70 transition p-4';
       a.className = 'block w-full max-w-full overflow-hidden rounded-2xl border border-dark-700 bg-dark-800/40 hover:bg-dark-800/70 transition p-4';
       const thumb = item.thumbnail || '';
+      const tagText = Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || '');
       a.innerHTML = `
         <div class="flex gap-4">
           <div class="w-20 h-14 rounded-xl overflow-hidden border border-dark-700 bg-dark-900/40 flex-shrink-0">
@@ -62,8 +63,9 @@
           <div class="min-w-0">
             <div class="text-xs text-lime-400 font-semibold">${normalize(item.section).toUpperCase()}</div>
             <div class="text-lg font-bold text-neutral-100 truncate">${normalize(item.title)}</div>
-            <div class="text-sm text-neutral-300 line-clamp-2">${normalize(item.description || item.summary)}</div>
-          </div>
+            // <div class="text-sm text-neutral-300 line-clamp-2">${normalize(item.description || item.summary)}</div>
+            <div class="text-sm text-neutral-300 line-clamp-2">${normalize(tagText)}</div>
+            </div>
         </div>
       `;
       frag.appendChild(a);
@@ -74,7 +76,9 @@
   async function loadIndex() {
     if (indexLoaded) return;
     indexLoaded = true;
-    const res = await fetch('/search-index.json', { cache: 'force-cache' });
+    // const res = await fetch('/search-index.json', { cache: 'force-cache' });
+    const indexUrl = window.__SEARCH_INDEX_URL || '/search-index.json';
+    const res = await fetch(indexUrl, { cache: 'no-store' });
     docs = await res.json();
 
     fuse = new Fuse(docs, {
@@ -82,9 +86,9 @@
       threshold: 0.35,
       ignoreLocation: true,
       keys: [
-        { name: 'title', weight: 0.45 },
-        { name: 'description', weight: 0.10 },
-        { name: 'tags', weight: 0.45 },
+        { name: 'title', weight: 0.60 },
+        { name: 'tags', weight: 0.40 },
+        // { name: 'description', weight: 0.10 },
         // { name: 'body', weight: 0.10 }
       ]
     });
