@@ -1,7 +1,7 @@
 ---
-title: Maksud Site is new 22
-date: '2026-02-14T09:12:33'
-description: How TLS works, what certificates do, and the configuration knobs that actually matter.
+title: This is the New Post
+date: '2026-02-20T09:12:33'
+description: How am I pushing code from my PC to github
 tags:
 - web
 - basics
