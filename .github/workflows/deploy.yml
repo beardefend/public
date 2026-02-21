@@ -27,9 +27,14 @@ jobs:
           hugo-version: '0.125.7'
           extended: true
 
+      # - name: Setup Pages
+      #   id: pages
+      #   uses: actions/configure-pages@v5
+
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # Cache Hugo's build artifacts to keep rebuilds fast as the site grows.
       # - `resources/` holds processed assets (e.g., resized/converted images via Hugo Pipes)
