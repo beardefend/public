@@ -15,16 +15,16 @@
   // function openPanel() { panel.style.display = 'block'; }
   // function closePanel() { panel.style.display = 'none'; }
   function openPanel() {
-  panel.style.display = 'block';
-  panel.setAttribute('aria-hidden', 'false');
+    panel.style.display = 'block';
+    panel.setAttribute('aria-hidden', 'false');
 
-  // lock the background scroll
-  document.body.style.overflow = 'hidden';
+    // lock the background scroll
+    document.body.style.overflow = 'hidden';
 
-  // ensure results scroll INSIDE the panel
-  list.style.maxHeight = 'min(60vh, 520px)';
-  list.style.overflowY = 'auto';
-  list.style.webkitOverflowScrolling = 'touch';
+    // ensure results scroll INSIDE the panel
+    list.style.maxHeight = 'min(60vh, 520px)';
+    list.style.overflowY = 'auto';
+    list.style.webkitOverflowScrolling = 'touch';
   }
 
   function closePanel() {
@@ -36,6 +36,24 @@
   }
 
   function normalize(str){ return (str || '').toString(); }
+
+  // Step 3: render tags as pill badges (small, wrapped)
+  function renderTagPills(tags) {
+    if (!Array.isArray(tags) || tags.length === 0) return '';
+
+    // keep UI clean; adjust if you want more/less
+    const shown = tags.slice(0, 8);
+
+    return `
+      <div class="mt-2 flex flex-wrap gap-2">
+        ${shown.map(t => `
+          <span class="text-[11px] px-2 py-0.5 rounded-full border border-dark-700 bg-dark-900/40 text-neutral-200">
+            ${normalize(t)}
+          </span>
+        `).join('')}
+      </div>
+    `;
+  }
 
   function render(results) {
     list.innerHTML = '';
@@ -54,18 +72,18 @@
       // a.className = 'block rounded-2xl border border-dark-700 bg-dark-800/40 hover:bg-dark-800/70 transition p-4';
       a.className = 'block w-full max-w-full overflow-hidden rounded-2xl border border-dark-700 bg-dark-800/40 hover:bg-dark-800/70 transition p-4';
       const thumb = item.thumbnail || '';
-      const tagText = Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || '');
+
       a.innerHTML = `
         <div class="flex gap-4">
           <div class="w-20 h-14 rounded-xl overflow-hidden border border-dark-700 bg-dark-900/40 flex-shrink-0">
             <img src="${thumb}" alt="" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <div class="min-w-0">
-            <div class="text-xs text-lime-400 font-semibold">${normalize(item.section).toUpperCase()}</div>
+            <div class="text-[10px] tracking-wider text-lime-400 font-semibold">${normalize(item.section).toUpperCase()}</div>
             <div class="text-lg font-bold text-neutral-100 truncate">${normalize(item.title)}</div>
-            // <div class="text-sm text-neutral-300 line-clamp-2">${normalize(item.description || item.summary)}</div>
-            <div class="text-sm text-neutral-300 line-clamp-2">${normalize(tagText)}</div>
-            </div>
+            <!-- <div class="text-sm text-neutral-300 line-clamp-2">${normalize(item.description || item.summary)}</div> -->
+            ${renderTagPills(item.tags)}
+          </div>
         </div>
       `;
       frag.appendChild(a);
