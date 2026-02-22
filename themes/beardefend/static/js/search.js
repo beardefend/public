@@ -41,13 +41,12 @@
   function renderTagPills(tags) {
     if (!Array.isArray(tags) || tags.length === 0) return '';
 
-    // keep UI clean; adjust if you want more/less
-    const shown = tags.slice(0, 8);
+    const shown = tags.slice(0, 6);
 
     return `
-      <div class="mt-2 flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 pt-1">
         ${shown.map(t => `
-          <span class="text-[11px] px-2 py-0.5 rounded-full border border-dark-700 bg-dark-900/40 text-neutral-200">
+          <span class="text-[11px] px-2 py-[3px] rounded-full border border-lime-500/40 text-lime-300 bg-dark-900/40 leading-none">
             ${normalize(t)}
           </span>
         `).join('')}
@@ -74,14 +73,20 @@
       const thumb = item.thumbnail || '';
 
       a.innerHTML = `
-        <div class="flex gap-4">
-          <div class="w-20 h-14 rounded-xl overflow-hidden border border-dark-700 bg-dark-900/40 flex-shrink-0">
+        <div class="flex gap-4 items-start">
+          <div class="w-20 h-20 rounded-xl overflow-hidden border border-dark-700 bg-dark-900/40 flex-shrink-0">
             <img src="${thumb}" alt="" class="w-full h-full object-cover" loading="lazy" />
           </div>
-          <div class="min-w-0">
-            <div class="text-[10px] tracking-wider text-lime-400 font-semibold">${normalize(item.section).toUpperCase()}</div>
-            <div class="text-lg font-bold text-neutral-100 truncate">${normalize(item.title)}</div>
-            <!-- <div class="text-sm text-neutral-300 line-clamp-2">${normalize(item.description || item.summary)}</div> -->
+
+          <div class="flex flex-col justify-start gap-1 min-w-0">
+            <div class="text-[10px] tracking-wider text-lime-400 font-semibold leading-none">
+              ${normalize(item.section).toUpperCase()}
+            </div>
+
+            <div class="text-[17px] font-bold text-neutral-100 leading-snug truncate">
+              ${normalize(item.title)}
+            </div>
+
             ${renderTagPills(item.tags)}
           </div>
         </div>
