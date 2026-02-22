@@ -1,3 +1,5 @@
 ---
-title: "Latest Updates"
+title: Latest Updates
 ---
+
+Browse Updates on BearDefend.

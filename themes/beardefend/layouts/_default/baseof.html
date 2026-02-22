@@ -25,26 +25,30 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 
-  {{/* Get thumbnail from bundle resource OR fallback param OR site default */}}
-  {{ $thumbRes := .Resources.GetMatch "thumbnail.*" }}
-  {{ $ogImage := "" }}
+  {{/* Get share image: prefer cover.* (portrait source) then thumbnail.* then param then site default */}}
+{{ $coverRes := .Resources.GetMatch "cover.*" }}
+{{ $thumbRes := .Resources.GetMatch "thumbnail.*" }}
+{{ $ogImage := "" }}
 
-  {{ if $thumbRes }}
-    {{ $og := $thumbRes.Fit "1200x630 jpg q85" }}
-    {{ $ogImage = $og.Permalink }}
-  {{ else if .Params.thumbnail }}
-    {{ $ogImage = (.Params.thumbnail | absURL) }}
-  {{ else if site.Params.defaultThumbnail }}
-    {{ $ogImage = (site.Params.defaultThumbnail | absURL) }}
-  {{ end }}
+{{ if $coverRes }}
+  {{ $og := $coverRes.Fit "1200x630 jpg q85" }}
+  {{ $ogImage = $og.Permalink }}
+{{ else if $thumbRes }}
+  {{ $og := $thumbRes.Fit "1200x630 jpg q85" }}
+  {{ $ogImage = $og.Permalink }}
+{{ else if .Params.thumbnail }}
+  {{ $ogImage = (.Params.thumbnail | absURL) }}
+{{ else if site.Params.defaultThumbnail }}
+  {{ $ogImage = (site.Params.defaultThumbnail | absURL) }}
+{{ end }}
 
-  {{ if $ogImage }}
-    <meta property="og:image" content="{{ $ogImage }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-  {{ end }}
+{{ if $ogImage }}
+  <meta property="og:image" content="{{ $ogImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+{{ end }}
 
-  {{/* ---------- Twitter Card ---------- */}}
+{{/* ---------- Twitter Card ---------- */}}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ site.Title }}{{ end }}">
   <meta name="twitter:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
@@ -80,5 +84,7 @@
   </script>
   <script>try { feather.replace(); } catch(e) {}</script>
   <script src="{{ "/js/search.js" | relURL }}" defer></script>
+  <script src="{{ "/js/share.js" | relURL }}" defer></script>
+  <script src="{{ "/js/image-skeleton.js" | relURL }}" defer></script>
 </body>
 </html>

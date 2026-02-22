@@ -1,0 +1,21 @@
+{{/* Share controls: Web Share API (if available) + copy link fallback */}}
+{{ $url := .Permalink }}
+{{ $title := .Title }}
+{{ $text := (.Params.description | default .Summary | plainify | htmlUnescape) }}
+
+<div class="bd-share mt-6 flex flex-wrap items-center gap-3"
+     data-share-url="{{ $url }}"
+     data-share-title="{{ $title }}"
+     data-share-text="{{ $text }}">
+  <button type="button" class="btn-share" data-action="share" aria-label="Share this page">
+    <i data-feather="share-2" class="w-4 h-4"></i>
+    <span>Share</span>
+  </button>
+
+  <button type="button" class="btn-share" data-action="copy" aria-label="Copy link">
+    <i data-feather="link" class="w-4 h-4"></i>
+    <span data-copy-label>Copy</span>
+  </button>
+
+  <span class="bd-share-hint text-xs text-neutral-500 hidden sm:inline">Tip: Ctrl/Cmd + K opens search</span>
+</div>

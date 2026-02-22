@@ -10,25 +10,44 @@ tags:
 thumbnail: /assets/posts/intro-to-web-security/thumbnail.png
 ---
 
-Web security is less about "magic hacks" and more about **reducing risk** with repeatable controls.
+A beginner-friendly map of the modern web threat landscape and the defenses that matter most.
 
-In this tutorial you’ll learn:
+## Who this is for
+- Builders shipping web apps or APIs
+- Anyone who wants a “do this, then verify” checklist
+- Teams that need repeatable, documented steps
 
-- The common attacker goals (data theft, account takeover, disruption)
-- The big risk areas: authentication, input handling, sessions, and dependencies
-- A practical checklist you can apply to any site
+## The core idea
+Security work is easier when you turn it into a small number of *verifiable controls*. For **Intro to Web Security**, focus on:
+1. **Reduce attack surface** (disable what you don’t use)
+2. **Harden defaults** (safe configs, least privilege)
+3. **Observe** (logs + alerts so you notice failures)
+4. **Verify** (a simple test that proves the control works)
 
-## A simple threat model
-Start with three questions:
+## Step-by-step
+1. **Define the boundary**
+   - What system/component are you protecting?
+   - What counts as “success” and “failure”?
+2. **Apply the control**
+   - Prefer configuration changes over custom code where possible.
+3. **Add a quick verification**
+   - A command, a curl request, or a log line you can check.
+4. **Document the “rollback”**
+   - If something breaks in prod, what do you revert first?
 
-1. What are you protecting?
-2. Who might want it?
-3. How could they get it?
+## Practical checklist
+- [ ] Identify the most likely abuse cases (auth bypass, data leak, RCE, DoS)
+- [ ] Set secure defaults in configuration
+- [ ] Enable logging for the control and confirm events are recorded
+- [ ] Run a verification test and store the result
+- [ ] Add a short “maintenance” note (what to re-check monthly)
 
-When you can answer those, you can prioritize defenses that actually move the needle.
+## Common mistakes
+- **Relying on one layer**: assume a control can fail—add a second one.
+- **No verification**: if you can’t test it, you can’t trust it.
+- **No operational owner**: decide who responds when it triggers.
 
-## Minimum baseline
-- Strong authentication (MFA where possible)
-- Secure defaults (least privilege)
-- Logging and alerting
-- Patch discipline
+## Next steps
+If you’re building out a security baseline, turn this into a reusable template for other topics like rate limiting, secrets management, and dependency scanning.
+
+**Tags:** web, basics, threat-modeling

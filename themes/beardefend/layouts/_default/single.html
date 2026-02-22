@@ -44,6 +44,9 @@
     {{ end }}
 
     {{/* --- Try bundle thumbnail first --- */}}
+
+    {{ partial "share.html" . }}
+
     {{ $thumbParam := .Params.thumbnail | default "thumbnail" }}
     {{ $thumbRes := .Resources.GetMatch $thumbParam }}
     {{ if not $thumbRes }}
@@ -54,12 +57,14 @@
     {{ end }}
 
     <div class="mt-8 rounded-3xl overflow-hidden border border-dark-700 bg-dark-800/40">
+      <div class="bd-imgwrap relative">
+        <div class="bd-skel absolute inset-0"></div>
       {{ if $thumbRes }}
         {{ $hero := $thumbRes.Fit "1280x720 webp q80" }}
         <img
           src="{{ $hero.RelPermalink }}"
           alt="{{ .Title }}"
-          class="w-full h-[260px] sm:h-[360px] object-cover"
+          class="w-full h-[260px] sm:h-[360px] object-cover relative"
           loading="eager"
           decoding="async"
         />
@@ -69,10 +74,11 @@
         <img
           src="{{ $fallback | relURL }}"
           alt=""
-          class="w-full h-[260px] sm:h-[360px] object-cover"
+          class="w-full h-[260px] sm:h-[360px] object-cover relative"
           loading="lazy"
         />
       {{ end }}
+      </div>
     </div>
 
     <div class="mt-8 rounded-3xl border border-dark-700 bg-dark-800/30">

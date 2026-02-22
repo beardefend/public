@@ -394,3 +394,41 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 .post-content pre { font-size: 0.85em; }
 /* Search panel */
 #search-panel { background: rgba(11,11,11,0.92); border-top: 1px solid rgba(255,255,255,0.06); }
+
+
+/* Share buttons (compact) */
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(10,10,10,0.35);
+  color: rgba(229,229,229,0.95);
+  font-weight: 650;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+.btn-share:hover { transform: translateY(-1px); background: rgba(16,16,16,0.55); border-color: rgba(74, 222, 128, 0.55); }
+
+/* Skeleton shimmer */
+.bd-imgwrap { position: relative; }
+.bd-skel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+}
+.bd-skel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: bdShimmer 1.2s infinite;
+}
+@keyframes bdShimmer { 100% { transform: translateX(100%); } }
+.bd-imgwrap img { opacity: 0; transition: opacity .25s ease; }
+.bd-imgwrap.is-loaded img { opacity: 1; }
+.bd-imgwrap.is-loaded .bd-skel { display: none; }
