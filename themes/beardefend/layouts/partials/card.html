@@ -36,24 +36,29 @@
 
 <a href="{{ .RelPermalink }}" class="group bd-card block transition">
   <div class="bd-thumb">
-    {{ if $thumbRes }}
-      <img
-        src="{{ $imgSrc }}"
-        srcset="{{ $imgSrcset }}"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        alt=""
-        loading="lazy"
-        decoding="async"
-        class="group-hover:scale-[1.02] transition"
-      />
-    {{ else }}
-      <img
-        src="{{ $imgSrc }}"
-        alt=""
-        loading="lazy"
-        class="group-hover:scale-[1.02] transition"
-      />
-    {{ end }}
+    <div class="bd-imgwrap">
+      <div class="bd-skel"></div>
+
+      {{ if $thumbRes }}
+        <img
+          src="{{ $imgSrc }}"
+          srcset="{{ $imgSrcset }}"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="group-hover:scale-[1.02] transition"
+        />
+      {{ else }}
+        <img
+          src="{{ $imgSrc }}"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="group-hover:scale-[1.02] transition"
+        />
+      {{ end }}
+    </div>
   </div>
 
   <div class="bd-card-body">
