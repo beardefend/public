@@ -23,9 +23,10 @@
 {{ $imgSrcset := "" }}
 
 {{ if $thumbRes }}
-  {{ $t640  := $thumbRes.Fit "640x360 webp q75" }}
-  {{ $t960  := $thumbRes.Fit "960x540 webp q75" }}
-  {{ $t1280 := $thumbRes.Fit "1280x720 webp q75" }}
+  {{/* Use Fill so we always get a consistent 16:9 crop regardless of original image size */}}
+  {{ $t640  := $thumbRes.Fill "640x360 Center webp q75" }}
+  {{ $t960  := $thumbRes.Fill "960x540 Center webp q75" }}
+  {{ $t1280 := $thumbRes.Fill "1280x720 Center webp q75" }}
   {{ $imgSrc = $t960.RelPermalink }}
   {{ $imgSrcset = printf "%s 640w, %s 960w, %s 1280w" $t640.RelPermalink $t960.RelPermalink $t1280.RelPermalink }}
 {{ else }}
@@ -36,8 +37,9 @@
 
 <a href="{{ .RelPermalink }}" class="group bd-card block transition">
   <div class="bd-thumb">
-    <div class="bd-imgwrap">
-      <div class="bd-skel"></div>
+    {{/* Fixed 16:9 frame for every card thumbnail */}}
+    <div class="bd-imgwrap relative overflow-hidden rounded-xl" style="aspect-ratio: 16 / 9;">
+      <div class="bd-skel absolute inset-0"></div>
 
       {{ if $thumbRes }}
         <img
@@ -47,7 +49,7 @@
           alt=""
           loading="lazy"
           decoding="async"
-          class="group-hover:scale-[1.02] transition"
+          class="w-full h-full object-cover group-hover:scale-[1.02] transition"
         />
       {{ else }}
         <img
@@ -55,7 +57,7 @@
           alt=""
           loading="lazy"
           decoding="async"
-          class="group-hover:scale-[1.02] transition"
+          class="w-full h-full object-cover group-hover:scale-[1.02] transition"
         />
       {{ end }}
     </div>
