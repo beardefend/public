@@ -23,10 +23,9 @@
 {{ $imgSrcset := "" }}
 
 {{ if $thumbRes }}
-  {{/* Use Fill so we always get a consistent 16:9 crop regardless of original image size */}}
-  {{ $t640  := $thumbRes.Fill "640x360 Center webp q75" }}
-  {{ $t960  := $thumbRes.Fill "960x540 Center webp q75" }}
-  {{ $t1280 := $thumbRes.Fill "1280x720 Center webp q75" }}
+  {{ $t640  := $thumbRes.Fit "640x360 webp q75" }}
+  {{ $t960  := $thumbRes.Fit "960x540 webp q75" }}
+  {{ $t1280 := $thumbRes.Fit "1280x720 webp q75" }}
   {{ $imgSrc = $t960.RelPermalink }}
   {{ $imgSrcset = printf "%s 640w, %s 960w, %s 1280w" $t640.RelPermalink $t960.RelPermalink $t1280.RelPermalink }}
 {{ else }}
@@ -36,9 +35,13 @@
 {{ end }}
 
 <a href="{{ .RelPermalink }}" class="group bd-card block transition">
-  <div class="bd-thumb">
-    {{/* Fixed 16:9 frame for every card thumbnail */}}
-    <div class="bd-imgwrap relative overflow-hidden rounded-xl" style="aspect-ratio: 16 / 9;">
+  {{/* 
+    KEY FIXES:
+    - bd-thumb gets overflow-hidden + rounded so hover scale can't spill
+    - bd-imgwrap used for shimmer + fade-in, but does NOT change sizing
+  */}}
+  <div class="bd-thumb overflow-hidden rounded-xl">
+    <div class="bd-imgwrap relative">
       <div class="bd-skel absolute inset-0"></div>
 
       {{ if $thumbRes }}
@@ -63,17 +66,18 @@
     </div>
   </div>
 
-  <div class="bd-card-body">
-    <div class="flex items-center gap-2 mb-3">
+  {{/* Make the content block slightly more compact */}}
+  <div class="bd-card-body pt-4">
+    <div class="flex items-center gap-2 mb-2">
       <span class="pill pill--label">{{ $sectionLabel }}</span>
       <span class="pill">{{ .Date.Format "2006-01-02" }}</span>
     </div>
 
-    <h3 class="text-xl font-extrabold text-neutral-100 leading-snug">{{ .Title }}</h3>
-    <p class="mt-2 text-sm text-neutral-300 leading-relaxed">{{ .Params.description | default .Summary }}</p>
+    <h3 class="text-lg font-extrabold text-neutral-100 leading-snug">{{ .Title }}</h3>
+    <p class="mt-1.5 text-sm text-neutral-300 leading-relaxed">{{ .Params.description | default .Summary }}</p>
 
     {{ with .Params.tags }}
-      <div class="mt-4 flex flex-wrap gap-2">
+      <div class="mt-3 flex flex-wrap gap-2">
         {{ range first 5 . }}
           <span class="tag-chip">{{ . }}</span>
         {{ end }}
