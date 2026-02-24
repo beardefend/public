@@ -401,12 +401,13 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: 4px;
+  padding: 5px 12px 5px 10px;
   border-radius: 14px;
   background: rgba(10,10,10,0.35);
   color: rgba(229,229,229,0.95);
-  font-weight: 650;
+  font-weight: bold;
+  font-size: small;
   border: 1px solid rgba(74, 222, 128, 0.35);
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
@@ -432,3 +433,36 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 .bd-imgwrap img { opacity: 0; transition: opacity .25s ease; }
 .bd-imgwrap.is-loaded img { opacity: 1; }
 .bd-imgwrap.is-loaded .bd-skel { display: none; }
+
+
+/* Newly added styles */
+
+.post-content p {
+  margin-bottom: 1rem;
+}
+
+.post-content h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.post-content h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+
+.post-content blockquote {
+  border-left: 3px solid #84cc16;
+  padding-left: 1rem;
+  color: rgba(229,231,235,0.85);
+}
