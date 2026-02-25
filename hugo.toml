@@ -63,3 +63,7 @@ notAlternative = true
 
 [outputs]
 home = ["HTML", "SearchIndex"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
