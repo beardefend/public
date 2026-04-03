@@ -1,0 +1,18 @@
+[
+  {
+    "name": "bKash",
+    "source": "bKash",
+    "apiUrl": "",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  {
+    "name": "Nagad",
+    "source": "Nagad",
+    "apiUrl": "",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  }
+]
