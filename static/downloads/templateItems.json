@@ -5,7 +5,7 @@
     "keyword": "received",
     "apiUrl": "",
     "headers": {
-      "Authorization": "Bearer TOKEN"
+      "Authorization": "TOKEN"
     }
   },
   {
@@ -14,7 +14,7 @@
     "keyword": "",
     "apiUrl": "",
     "headers": {
-      "Authorization": "Bearer TOKEN"
+      "Authorization": "TOKEN"
     }
   }
 ]
