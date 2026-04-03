@@ -5,7 +5,8 @@
     "keyword": "received",
     "apiUrl": "https://n8n.myhomeproduct.com/webhook/sms",
     "headers": {
-      "Authorization": "TOKEN"
+      "Authorization": "TOKEN",
+      "Content-Type": "application/json"
     }
   },
   {
