@@ -348,7 +348,8 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 
 .post-content pre{
   margin: 1.15em 0;
-  background: rgba(10,10,10,0.65);
+  /* background: rgba(10,10,10,0.65); */
+  background: #09140b4f;
   border: 1px solid rgba(42,42,42,0.9);
   padding: 16px;
   border-radius: 16px;
