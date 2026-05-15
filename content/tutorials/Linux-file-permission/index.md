@@ -1,6 +1,6 @@
 ---
 title: Linux file permissions explained — what I wish I knew earlier
-date: '2026-05-15T18:30:00'
+date: '2026-05-15T18:30:00Z'
 description: A beginner-friendly guide to Linux file permissions covering chmod, chown, special bits, and the dangerous 777 mistake that exposes servers to attack.
 tags:
 - linux

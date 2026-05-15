@@ -1,6 +1,6 @@
 ---
 title: What does a Linux systems engineer actually do day to day
-date: '2026-05-14'
+date: '2026-05-14T09:00:00Z'
 description: A practical look at the daily responsibilities of Linux systems engineers—from patching vulnerabilities and vulnerability assessments to server troubleshooting, application onboarding, and security hardening.
 tags:
 - linux
