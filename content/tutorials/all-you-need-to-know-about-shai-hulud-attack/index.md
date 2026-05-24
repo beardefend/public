@@ -1,6 +1,6 @@
 ---
-title: "All you need to know about Shai Hulud attack, who and what it is and what it does"
-date: 2026-05-24T13:20:00Z
+title: "All you need to know about Shai hulud attack"
+date: 2026-05-20T10:00:00Z
 description: "An in-depth look at the Shai Hulud attack: its origins, the threat actors behind it, how it operates, and what it means for cybersecurity."
 tags:
   - cybersecurity
