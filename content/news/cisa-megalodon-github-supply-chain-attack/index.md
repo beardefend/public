@@ -1,6 +1,6 @@
 ---
 title: "CISA Urges Security Teams to Audit Software Development Pipelines After Megalodon Supply‑Chain Attack"
-date: 2026-05-30T10:00:00Z
+date: 2026-05-30T08:00:00Z
 description: "CISA warns about Megalodon supply-chain attack injecting malicious GitHub Actions into 5,500+ repositories and compromise via poisoned Nx Console VS Code extension, urging security teams to audit workflows and rotate credentials."
 tags:
   - cybersecurity
