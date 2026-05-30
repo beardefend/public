@@ -10,7 +10,7 @@ tags:
   - Megalodon
   - Nx Console
   - vulnerability
-thumbnail: "thumbnail.png"
+thumbnail: "thumbnail.jpg"
 ---
 
 ## CISA Urges Security Teams to Audit Software Development Pipelines After Megalodon Supply‑Chain Attack
